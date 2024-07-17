@@ -48,18 +48,22 @@ interface IInputBox {
     ) external view returns (bytes32);
 }
 
+interface IWhiteList {
+function addToWhiteList(address user)external  ;
+}
 contract CartesiVerifier is  EmbeddedZKPVerifier {
     uint64 public constant TRANSFER_REQUEST_ID = 1;
     address inputBoxAddr;
 
-    function setinputBoxAddr(address _inputadd) public payable {
+    function setinputBoxAddr(address _inputadd) public onlyOwner  {
        inputBoxAddr = _inputadd;
     }
-     function addInput(uint64 _requestID,address _dapp,bytes calldata data) external returns (bytes32) {
+    function whiteList(uint64 _requestID,address _dapp) external returns (bytes32) {
          require(
          getProofStatus(_msgSender(), _requestID).isVerified ,
-         'only identities who provided sig or mtp proof for transfer requests are allowed to receive tokens');
-        return IInputBox(inputBoxAddr).addInput(_dapp,data);
+         'only identities who provided sig or mtp proof for transfer requests are allowed to receive tokens'
+      );
+    return IInputBox(inputBoxAddr).addInput(_dapp,abi.encodeCall(IWhiteList.addToWhiteList,(_msgSender())));
     }
 
     
@@ -115,5 +119,3 @@ contract CartesiVerifier is  EmbeddedZKPVerifier {
   
 
 }
-
-
