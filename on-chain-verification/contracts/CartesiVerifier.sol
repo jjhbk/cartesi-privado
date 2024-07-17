@@ -56,10 +56,9 @@ contract CartesiVerifier is  EmbeddedZKPVerifier {
        inputBoxAddr = _inputadd;
     }
      function addInput(uint64 _requestID,address _dapp,bytes calldata data) external returns (bytes32) {
-       //  require(
-         //getProofStatus(_msgSender(), _requestID).isVerified ,
-         //'only identities who provided sig or mtp proof for transfer requests are allowed to receive tokens'
-      //);
+         require(
+         getProofStatus(_msgSender(), _requestID).isVerified ,
+         'only identities who provided sig or mtp proof for transfer requests are allowed to receive tokens');
         return IInputBox(inputBoxAddr).addInput(_dapp,data);
     }
 

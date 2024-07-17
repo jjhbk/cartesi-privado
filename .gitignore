@@ -10,3 +10,5 @@
 /on-chain-verification/artifacts
 /on-chain-verification/cache
 /server/node_modules
+
+*.env

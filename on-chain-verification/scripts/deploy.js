@@ -1,16 +1,14 @@
 async function main() {
-  const verifierContract = "ERC20Verifier";
-  const verifierName = "ERC20zkAirdrop";
-  const verifierSymbol = "zkERC20";
+  const verifierContract = "CartesiVerifier";
 
-  const ERC20Verifier = await ethers.getContractFactory(verifierContract);
-  const erc20Verifier = await upgrades.deployProxy(
-    ERC20Verifier,
-    [verifierName, verifierSymbol]
+
+  const CartesiVerifier = await ethers.getContractFactory(verifierContract);
+  const cartesiVerifier = await upgrades.deployProxy(
+    CartesiVerifier
   );
 
-  await  erc20Verifier.waitForDeployment()
-  console.log(verifierName, " contract address:", await erc20Verifier.getAddress());
+  await cartesiVerifier.waitForDeployment()
+  console.log(verifierName, " contract address:", await cartesiVerifier.getAddress());
 }
 main()
   .then(() => process.exit(0))

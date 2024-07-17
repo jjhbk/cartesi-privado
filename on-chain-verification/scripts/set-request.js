@@ -108,9 +108,9 @@ async function main() {
   ).toString();
 
   // add the address of the contract just deployed
-  const ERC20VerifierAddress = "0xf3b2CD144940D1D116e4A58B8d38B898aAe8cfed"
+  const CartesiVerifierAddress = "0xf3b2CD144940D1D116e4A58B8d38B898aAe8cfed"
 
-  let erc20Verifier = await hre.ethers.getContractAt("ERC20Verifier", ERC20VerifierAddress)
+  let cartesiVerifier = await hre.ethers.getContractAt("CartesiVerifier", CartesiVerifierAddress)
 
 
   const validatorAddress = "0x8c99F13dc5083b1E4c16f269735EaD4cFbc4970d"; // sig validator
@@ -124,7 +124,7 @@ async function main() {
     body: {
       reason: 'airdrop participation',
       transaction_data: {
-        contract_address: ERC20VerifierAddress,
+        contract_address: CartesiVerifierAddress,
         method_id: 'b68967e2',
         chain_id: 80002,
         network: 'polygon-amoy'
@@ -149,13 +149,12 @@ async function main() {
   };
 
   try {
-    /*const txId = await erc20Verifier.setZKPRequest(
+    const txId = await cartesiVerifier.setZKPRequest(
       requestId, {
       metadata: JSON.stringify(invokeRequestMetadata),
       validator: validatorAddress,
       data: packValidatorParams(query)
-    });*/
-    (abi.encode(uint256(keccak256("polygonid.storage.ERC20Verifier")) - 1)) & ~bytes32(uint256(0xff))
+    });
 
     console.log("Request set: ", txId.hash);
   } catch (e) {

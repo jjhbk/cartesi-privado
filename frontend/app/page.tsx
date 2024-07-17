@@ -6,6 +6,8 @@ import { Network } from "./network";
 import QRCode from "react-qr-code";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+//import { verifyMessage } from "ethers/lib/utils";
+import { encodeFunctionData, parseAbi } from 'viem';
 const styles = {
   root: {
     color: "#2C1752",
@@ -16,6 +18,8 @@ const styles = {
     color: "#7B3FE4"
   }
 };
+
+
 
 const ngrok_url = "<your_ngrok_url>";
 const amoy_rpc_url = "<your_rpc_url>";
@@ -113,6 +117,12 @@ init({
 
 export default function Home() {
   const [qrcode, setQrcode] = useState(qrProofRequestJson);
+  console.log("hello world");
+  const dappAbi = parseAbi([
+    "function checkWhiteList(address user)",
+    "function addToWhiteList(address user)"
+  ]);
+
 
   const getAuthRequest = () => {
 
@@ -168,7 +178,12 @@ export default function Home() {
         <br />
         <br />
 
-        <button onClick={() => { setQrcode(onchain_qr_proof_request) }}>Get on chain Qr-code</button>
+        <button onClick={() => {
+          console.log('abi encoded data check is:', encodeFunctionData({ abi: dappAbi, functionName: 'checkWhiteList', args: ['0x08208F5518c622a0165DBC1432Bc2c361AdFFFB1'] }));
+          console.log('abi encoded data to add is:', encodeFunctionData({ abi: dappAbi, functionName: 'addToWhiteList', args: ['0x08208F5518c622a0165DBC1432Bc2c361AdFFFB1'] }));
+
+          setQrcode(onchain_qr_proof_request)
+        }}>Get on chain Qr-code</button>
         <p>
           Polygonscan:{" "}
           <a
