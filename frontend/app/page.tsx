@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import injectedModule from "@web3-onboard/injected-wallets";
 import { init } from "@web3-onboard/react";
 import configFile from "./config.json";
@@ -7,19 +7,17 @@ import QRCode from "react-qr-code";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 //import { verifyMessage } from "ethers/lib/utils";
-import { encodeFunctionData, parseAbi } from 'viem';
+import { encodeFunctionData, parseAbi } from "viem";
 const styles = {
   root: {
     color: "#2C1752",
     fontFamily: "sans-serif",
-    textAlign: "center"
+    textAlign: "center",
   },
   title: {
-    color: "#7B3FE4"
-  }
+    color: "#7B3FE4",
+  },
 };
-
-
 
 const ngrok_url = "<your_ngrok_url>";
 const amoy_rpc_url = "<your_rpc_url>";
@@ -27,105 +25,136 @@ const amoy_rpc_url = "<your_rpc_url>";
 const deployedContractAddress = "0x0Fb484F2057e224D5f025B4bD5926669a5a32786";
 const id = uuidv4();
 // more info on query based requests: https://0xpolygonid.github.io/tutorials/wallet/proof-generation/types-of-auth-requests-and-proofs/#query-based-request
-const amoyqrProofRequestJson={
-  "id": "7f38a193-0918-4a48-9fac-36adfdb8b542",
-  "typ": "application/iden3comm-plain-json",
-  "type": "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
-  "thid": "7f38a193-0918-4a48-9fac-36adfdb8b542",
-  "body": {
-    "reason": "airdrop participation",
-    "transaction_data": {
-      "contract_address": "0x0Fb484F2057e224D5f025B4bD5926669a5a32786",
-      "method_id": "b68967e2",
-      "chain_id": 80002,
-      "network": "polygon-amoy"
+const amoyqrProofRequestJson = {
+  id: "7f38a193-0918-4a48-9fac-36adfdb8b542",
+  typ: "application/iden3comm-plain-json",
+  type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
+  thid: "7f38a193-0918-4a48-9fac-36adfdb8b542",
+  body: {
+    reason: "airdrop participation",
+    transaction_data: {
+      contract_address: "0x0Fb484F2057e224D5f025B4bD5926669a5a32786",
+      method_id: "b68967e2",
+      chain_id: 80002,
+      network: "polygon-amoy",
     },
-    "scope": [
+    scope: [
       {
-        "id": 1,
-        "circuitId": "credentialAtomicQuerySigV2OnChain",
-        "query": {
-          "allowedIssuers": [
-            "*"
-          ],
-          "context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-          "credentialSubject": {
-            "birthday": {
-              "$lt": 20020101
-            }
+        id: 1,
+        circuitId: "credentialAtomicQuerySigV2OnChain",
+        query: {
+          allowedIssuers: ["*"],
+          context:
+            "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+          credentialSubject: {
+            birthday: {
+              $lt: 20020101,
+            },
           },
-          "type": "KYCAgeCredential"
-        }
-      }
-    ]
-  }
-}
-const qrProofRequestJson = {
-  "id": `${id}`,
-  "typ": "application/iden3comm-plain-json",
-  "type": "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
-  "thid": `${id}`,
-  "body": {
-    "reason": "airdrop participation",
-    "transaction_data": {
-      "contract_address": "0x45F1D460F024a9E2Db58C4f6B47FC9dAb76856db",
-      "method_id": "b68967e2",
-      "chain_id": 80002,
-      "network": "polygon-amoy"
+          type: "KYCAgeCredential",
+        },
+      },
+    ],
+  },
+};
 
+const amoyUqrProofJson = {
+  id: "7f38a193-0918-4a48-9fac-36adfdb8b542",
+  typ: "application/iden3comm-plain-json",
+  type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
+  thid: "7f38a193-0918-4a48-9fac-36adfdb8b542",
+  body: {
+    reason: "Cartesi Verification",
+    transaction_data: {
+      contract_address: "0x70696036CA1868B42155b06235F95549667Eb0BE",
+      method_id: "b68967e2",
+      chain_id: 80002,
+      network: "polygon-amoy",
     },
-    "scope": [
+    scope: [
       {
-        "id": 1,
-        "circuitId": "credentialAtomicQuerySigV2OnChain",
-        "query": {
-          "allowedIssuers": ["*"],
-          "context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-          "credentialSubject": {
-            "birthday": {
-              "$lt": 20020101
-            }
+        id: 1717138699,
+        circuitId: "credentialAtomicQuerySigV2OnChain",
+        query: {
+          allowedIssuers: ["*"],
+          context:
+            "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+          credentialSubject: {
+            birthday: {
+              $lt: 20020101,
+            },
           },
-          "type": "KYCAgeCredential"
-        }
-      }
-    ]
-  }
+          type: "KYCAgeCredential",
+        },
+      },
+    ],
+  },
+};
+const qrProofRequestJson = {
+  id: `${id}`,
+  typ: "application/iden3comm-plain-json",
+  type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
+  thid: `${id}`,
+  body: {
+    reason: "airdrop participation",
+    transaction_data: {
+      contract_address: "0x45F1D460F024a9E2Db58C4f6B47FC9dAb76856db",
+      method_id: "b68967e2",
+      chain_id: 80002,
+      network: "polygon-amoy",
+    },
+    scope: [
+      {
+        id: 1,
+        circuitId: "credentialAtomicQuerySigV2OnChain",
+        query: {
+          allowedIssuers: ["*"],
+          context:
+            "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+          credentialSubject: {
+            birthday: {
+              $lt: 20020101,
+            },
+          },
+          type: "KYCAgeCredential",
+        },
+      },
+    ],
+  },
 };
 
 const onchain_qr_proof_request = {
-  "id": `${id}`,
-  "typ": "application/iden3comm-plain-json",
-  "type": "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
-  "thid": `${id}`,
-  "body": {
-    "reason": "airdrop participation",
-    "transaction_data": {
-      "contract_address": "0xf3b2CD144940D1D116e4A58B8d38B898aAe8cfed",
-      "method_id": "b68967e2",
-      "chain_id": 80002,
-      "network": "polygon-amoy"
+  id: `${id}`,
+  typ: "application/iden3comm-plain-json",
+  type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
+  thid: `${id}`,
+  body: {
+    reason: "airdrop participation",
+    transaction_data: {
+      contract_address: "0xf3b2CD144940D1D116e4A58B8d38B898aAe8cfed",
+      method_id: "b68967e2",
+      chain_id: 80002,
+      network: "polygon-amoy",
     },
-    "scope": [
+    scope: [
       {
-        "id": 1,
-        "circuitId": "credentialAtomicQuerySigV2OnChain",
-        "query": {
-          "allowedIssuers": [
-            "*"
-          ],
-          "context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-          "credentialSubject": {
-            "birthday": {
-              "$lt": 20020101
-            }
+        id: 1,
+        circuitId: "credentialAtomicQuerySigV2OnChain",
+        query: {
+          allowedIssuers: ["*"],
+          context:
+            "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+          credentialSubject: {
+            birthday: {
+              $lt: 20020101,
+            },
           },
-          "type": "KYCAgeCredential"
-        }
-      }
-    ]
-  }
-}
+          type: "KYCAgeCredential",
+        },
+      },
+    ],
+  },
+};
 
 const config = configFile;
 const injected = injectedModule();
@@ -147,56 +176,52 @@ init({
   },
 });
 
-
 export default function Home() {
-  const [qrcode, setQrcode] = useState(amoyqrProofRequestJson);
-  console.log("hello world");
- 
+  const [qrcode, setQrcode] = useState(amoyUqrProofJson);
+  console.log("hello world here");
 
   const getAuthRequest = () => {
-
     const options = {
       headers: {
-        "ngrok-skip-browser-warning": true // Set content type to JSON
+        "ngrok-skip-browser-warning": true, // Set content type to JSON
       },
       // Convert JSON data to a string and set it as the request body
     };
 
     fetch(`http://localhost:8805/api/sign-in`)
-      .then(response => {
+      .then((response) => {
         // Check if the request was successful
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         // Parse the response as JSON
-        return response.json()
-
+        return response.json();
       })
-      .then(data => {
+      .then((data) => {
         // Handle the JSON data
         console.log(data);
         setQrcode(data);
-
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle any errors that occurred during the fetch
-        console.error('Fetch error:', error);
+        console.error("Fetch error:", error);
       });
-  }
+  };
   return (
     <div>
       <h1>DECENTRAADS</h1>
       <Network />
-      <div >
-        <h2 >
-          ERC20 Token Transfer using Polygon ID On chain Verification for users greater than 18 years of age
+      <div>
+        <h2>
+          ERC20 Token Transfer using Polygon ID On chain Verification for users
+          greater than 18 years of age
         </h2>
         <p>Scan the QR code to prove your age</p>
 
         <div>
           <QRCode
             level="Q"
-            style={{ marginLeft: 50, alignContent: 'center', width: 256 }}
+            style={{ marginLeft: 50, alignContent: "center", width: 256 }}
             value={JSON.stringify(qrcode)}
           />
         </div>
@@ -207,10 +232,13 @@ export default function Home() {
         <br />
         <br />
 
-        <button onClick={() => {
-
-          setQrcode(onchain_qr_proof_request)
-        }}>Get on chain Qr-code</button>
+        <button
+          onClick={() => {
+            setQrcode(onchain_qr_proof_request);
+          }}
+        >
+          Get on chain Qr-code
+        </button>
         <p>
           Polygonscan:{" "}
           <a
