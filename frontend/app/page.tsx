@@ -167,9 +167,9 @@ init({
     rpcUrl: v.rpcUrl,
   })),
   appMetadata: {
-    name: "DecentraAds",
+    name: "Cartesi-Privado Verifier",
     icon: "<svg><svg/>",
-    description: "Decentralized Marketplace for Adspaces",
+    description: "Cartesi Dapp with PrivadoID Verification",
     recommendedInjectedWallets: [
       { name: "MetaMask", url: "https://metamask.io" },
     ],
@@ -209,14 +209,17 @@ export default function Home() {
   };
   return (
     <div>
-      <h1>DECENTRAADS</h1>
+      <h1>Cartesi-Privado Verifier</h1>
       <Network />
       <div>
         <h2>
-          ERC20 Token Transfer using Polygon ID On chain Verification for users
-          greater than 18 years of age
+          Verify your Age Using Privado ID to start Interacting with Cartesi
+          DApp greater than 18 years of age
         </h2>
-        <p>Scan the QR code to prove your age</p>
+        <p>
+          Scan the QR code with your Polygon ID Wallet APP to prove your age &
+          start Interacting
+        </p>
 
         <div>
           <QRCode
@@ -227,7 +230,7 @@ export default function Home() {
         </div>
         <br />
         <br />
-
+        {/*
         <button onClick={getAuthRequest}>Get Qr-code</button>
         <br />
         <br />
@@ -248,6 +251,7 @@ export default function Home() {
             ERC20TokenAddress
           </a>
         </p>
+*/}
       </div>
     </div>
   );
