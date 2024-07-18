@@ -2,7 +2,7 @@ import { createApp } from "@deroll/app";
 import { decodeFunctionData, encodeAbiParameters, encodePacked, parseAbi, stringToHex, getAddress } from "viem";
 
 // create application
-const app = createApp({ url: "http://localhost:8080/host-runner" });
+const app = createApp({ url: "http://127.0.0.1:5004" });
 const WhiteList = new Map<string, boolean>();
 // define application ABI
 const abi = parseAbi([
@@ -23,7 +23,8 @@ app.addAdvanceHandler(async (data) => {
       }
       return "accept";
     case "addToWhiteList":
-      if (getAddress(data.metadata.msg_sender) === getAddress("0x5eb3Bc0a489C5A8288765d2336659EbCA68FCd00")) {
+
+      if (getAddress(data.metadata.msg_sender) === getAddress("0x0Fb484F2057e224D5f025B4bD5926669a5a32786")) {
         const [user] = args;
         console.log(`adding ${user} to whitelist`);
         WhiteList.set(user, true);

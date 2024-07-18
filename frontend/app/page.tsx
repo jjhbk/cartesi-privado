@@ -24,9 +24,42 @@ const styles = {
 const ngrok_url = "<your_ngrok_url>";
 const amoy_rpc_url = "<your_rpc_url>";
 // update with your contract address
-const deployedContractAddress = "0x676A0270692461917E6A7fC6f92233E7418d3BBa";
+const deployedContractAddress = "0x0Fb484F2057e224D5f025B4bD5926669a5a32786";
 const id = uuidv4();
 // more info on query based requests: https://0xpolygonid.github.io/tutorials/wallet/proof-generation/types-of-auth-requests-and-proofs/#query-based-request
+const amoyqrProofRequestJson={
+  "id": "7f38a193-0918-4a48-9fac-36adfdb8b542",
+  "typ": "application/iden3comm-plain-json",
+  "type": "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
+  "thid": "7f38a193-0918-4a48-9fac-36adfdb8b542",
+  "body": {
+    "reason": "airdrop participation",
+    "transaction_data": {
+      "contract_address": "0x0Fb484F2057e224D5f025B4bD5926669a5a32786",
+      "method_id": "b68967e2",
+      "chain_id": 80002,
+      "network": "polygon-amoy"
+    },
+    "scope": [
+      {
+        "id": 1,
+        "circuitId": "credentialAtomicQuerySigV2OnChain",
+        "query": {
+          "allowedIssuers": [
+            "*"
+          ],
+          "context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+          "credentialSubject": {
+            "birthday": {
+              "$lt": 20020101
+            }
+          },
+          "type": "KYCAgeCredential"
+        }
+      }
+    ]
+  }
+}
 const qrProofRequestJson = {
   "id": `${id}`,
   "typ": "application/iden3comm-plain-json",
@@ -116,13 +149,9 @@ init({
 
 
 export default function Home() {
-  const [qrcode, setQrcode] = useState(qrProofRequestJson);
+  const [qrcode, setQrcode] = useState(amoyqrProofRequestJson);
   console.log("hello world");
-  const dappAbi = parseAbi([
-    "function checkWhiteList(address user)",
-    "function addToWhiteList(address user)"
-  ]);
-
+ 
 
   const getAuthRequest = () => {
 
@@ -179,8 +208,6 @@ export default function Home() {
         <br />
 
         <button onClick={() => {
-          console.log('abi encoded data check is:', encodeFunctionData({ abi: dappAbi, functionName: 'checkWhiteList', args: ['0x08208F5518c622a0165DBC1432Bc2c361AdFFFB1'] }));
-          console.log('abi encoded data to add is:', encodeFunctionData({ abi: dappAbi, functionName: 'addToWhiteList', args: ['0x08208F5518c622a0165DBC1432Bc2c361AdFFFB1'] }));
 
           setQrcode(onchain_qr_proof_request)
         }}>Get on chain Qr-code</button>

@@ -4,7 +4,7 @@
 /backend/.cartesi
 /backend/dist
 /backend/node_modules
-
+/backend/.env
 /on-chain-verification/.env
 /on-chain-verification/node_modules
 /on-chain-verification/artifacts

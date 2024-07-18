@@ -2,7 +2,8 @@ const { Web3 } = require('web3');
 const { poseidon } = require('@iden3/js-crypto');
 const { SchemaHash } = require('@iden3/js-iden3-core');
 const { prepareCircuitArrayValues } = require('@0xpolygonid/js-sdk');
-const { ethers } = require('ethers');
+const { ethers } = require("hardhat");
+const CartesiVerifier = require("../abi/CartesiVerifier.json");
 const Operators = {
   NOOP: 0, // No operation, skip query verification in circuit
   EQ: 1, // equal
@@ -15,6 +16,7 @@ const Operators = {
 
 function packValidatorParams(query, allowedIssuers = []) {
   const web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
+  console.log(web3.currentProvider);
   return web3.eth.abi.encodeParameter(
     {
       CredentialAtomicQuery: {
@@ -75,6 +77,12 @@ function calculateQueryHash(
 
 async function main() {
 
+
+  const CartesiVerifierAddress = "0x0Fb484F2057e224D5f025B4bD5926669a5a32786"
+
+  let cartesiVerifier = await ethers.getContractAt(CartesiVerifier.abi, CartesiVerifierAddress)
+
+
   // you can run https://go.dev/play/p/oB_oOW7kBEw to get schema hash and claimPathKey using YOUR schema
   // suggestion: Use your own go application with that code rather than using playground (it can give a timeout just because it’s restricted by the size of dependency package)
   const schemaBigInt = "74977327600848231385663280181476307657"
@@ -108,10 +116,6 @@ async function main() {
   ).toString();
 
   // add the address of the contract just deployed
-  const CartesiVerifierAddress = "0xf3b2CD144940D1D116e4A58B8d38B898aAe8cfed"
-
-  let cartesiVerifier = await hre.ethers.getContractAt("CartesiVerifier", CartesiVerifierAddress)
-
 
   const validatorAddress = "0x8c99F13dc5083b1E4c16f269735EaD4cFbc4970d"; // sig validator
   // const validatorAddress = "0xEEd5068AD8Fecf0b9a91aF730195Fef9faB00356"; // mtp validator
@@ -156,6 +160,11 @@ async function main() {
       data: packValidatorParams(query)
     });
 
+    console.log("request", requestId, {
+      metadata: JSON.stringify(invokeRequestMetadata),
+      validator: validatorAddress,
+      data: packValidatorParams(query)
+    });
     console.log("Request set: ", txId.hash);
   } catch (e) {
     console.log("error: ", e);
