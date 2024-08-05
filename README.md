@@ -13,6 +13,8 @@ A simple DApp template which has [PrivadoID](https://docs.privado.id/docs/introd
 At its core, the [Cartesi](https://docs.cartesi.io/cartesi-rollups/1.3/) Rollup executes the Cartesi Machine - a robust RISCV deterministic emulator running Linux OS - fueled by ordered inputs and custom application code. Inputs sourced from the data availability layer are read by the Cartesi Node, inside of which the Cartesi Machine processes them and generates outputs. After the optimistic rollup dispute window passes, these outputs are verifiable and possibly executable on the settlement layer.
 The Cartesi Rollup framework is application-specific, assigning each dApp its rollup app chain and CPU while linking its optimistic rollups' consensus directly to the base layer
 
+`note:Cartesi-rollups-version-1.4.0`
+
 ## Architecture
 
 ![alt text](decentraSign.jpg)
@@ -38,15 +40,22 @@ npx hardhat run ./scripts/deploy_dapp.js --network amoy
 
 ```
 
+[Deployment-Guide](https://docs.cartesi.io/cartesi-rollups/1.3/deployment/self-hosted/)
+
+`note:Cartesi Rollups contracts are already deployed to the Polygon Amoy testnet`
+
 ## Polygon ID Wallet setup
 
 1. Download the Polygon ID mobile app on the [Google Play](https://play.google.com/store/apps/details?id=com.polygonid.wallet) or [Apple app store](https://apps.apple.com/us/app/polygon-id/id1629870183)
 
 2. Open the app and set a pin for security
 
-3. Issue yourself a Credential of type `Kyc Age Credential Merklized` from the [Polygon ID Issuer Sandbox](https://issuer-ui.polygonid.me/)
-   - Import json schema[v3](https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json/KYCAgeCredential-v3.json)
-   - Issue credential https://issuer-ui.polygonid.me/credentials/issue using the credential link and fetch credential to mobile
+## Issue a Credential
+
+Issue yourself a Credential of type `Kyc Age Credential Merklized` from the [Polygon ID Issuer Sandbox](https://issuer-ui.polygonid.me/)
+
+- Import json schema[v3](https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json/KYCAgeCredential-v3.json)
+- Issue credential https://issuer-ui.polygonid.me/credentials/issue using the credential link and fetch credential to mobile
 
 ## Frontend
 
