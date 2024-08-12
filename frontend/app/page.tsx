@@ -90,71 +90,7 @@ const amoyUqrProofJson = {
     ],
   },
 };
-const qrProofRequestJson = {
-  id: `${id}`,
-  typ: "application/iden3comm-plain-json",
-  type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
-  thid: `${id}`,
-  body: {
-    reason: "airdrop participation",
-    transaction_data: {
-      contract_address: "0x45F1D460F024a9E2Db58C4f6B47FC9dAb76856db",
-      method_id: "b68967e2",
-      chain_id: 80002,
-      network: "polygon-amoy",
-    },
-    scope: [
-      {
-        id: 1,
-        circuitId: "credentialAtomicQuerySigV2OnChain",
-        query: {
-          allowedIssuers: ["*"],
-          context:
-            "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-          credentialSubject: {
-            birthday: {
-              $lt: 20020101,
-            },
-          },
-          type: "KYCAgeCredential",
-        },
-      },
-    ],
-  },
-};
 
-const onchain_qr_proof_request = {
-  id: `${id}`,
-  typ: "application/iden3comm-plain-json",
-  type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
-  thid: `${id}`,
-  body: {
-    reason: "airdrop participation",
-    transaction_data: {
-      contract_address: "0xf3b2CD144940D1D116e4A58B8d38B898aAe8cfed",
-      method_id: "b68967e2",
-      chain_id: 80002,
-      network: "polygon-amoy",
-    },
-    scope: [
-      {
-        id: 1,
-        circuitId: "credentialAtomicQuerySigV2OnChain",
-        query: {
-          allowedIssuers: ["*"],
-          context:
-            "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-          credentialSubject: {
-            birthday: {
-              $lt: 20020101,
-            },
-          },
-          type: "KYCAgeCredential",
-        },
-      },
-    ],
-  },
-};
 
 const config = configFile;
 const injected = injectedModule();
