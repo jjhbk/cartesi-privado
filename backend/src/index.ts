@@ -24,7 +24,7 @@ app.addAdvanceHandler(async (data) => {
       return "accept";
     case "addToWhiteList":
 
-      if (getAddress(data.metadata.msg_sender) === getAddress("0x0Fb484F2057e224D5f025B4bD5926669a5a32786")) {
+      if (getAddress(data.metadata.msg_sender) === getAddress("0x70c0dE66524a14a55BDb18D00a50e32648dCAa4c")) {
         const [user] = args;
         console.log(`adding ${user} to whitelist`);
         WhiteList.set(user, true);
